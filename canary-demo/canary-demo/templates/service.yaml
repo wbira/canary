@@ -4,6 +4,11 @@ metadata:
   name: {{ .Release.Name }}
   labels:
     app: {{ .Release.Name }}
+    release: prometheus
+  annotations:
+    prometheus.io/scrape: "true"
+    prometheus.io/path: "/metrics"                
+    prometheus.io/port: "{{ .Values.service.port }}" 
 spec:
   selector:
     app: {{ .Release.Name }}
@@ -21,6 +26,11 @@ metadata:
   name: {{ .Release.Name }}-canary
   labels:
     app: {{ .Release.Name }}-canary
+    release: prometheus
+  annotations:
+    prometheus.io/scrape: "true"
+    prometheus.io/path: "/metrics"                
+    prometheus.io/port: "{{ .Values.service.port }}"
 spec:
   selector:
     app: {{ .Release.Name }}-canary
